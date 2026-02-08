@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Sumita ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #5a0a0a;
+}
+
+.container {
+    background: rgba(255,255,255,0.9);
+    padding: 30px;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 520px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    position: relative;
+    z-index: 2;
+}
+
+.hidden { display: none; }
+
+button {
+    padding: 12px 22px;
+    margin: 10px;
+    border-radius: 30px;
+    border: none;
+    background: #ff4d6d;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover { background: #e63950; }
+
+input {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    width: 80%;
+}
+
+/* Floating hearts */
+.heart {
+    position: absolute;
+    color: rgba(255,0,80,0.6);
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(100vh); opacity: 1; }
+    to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Cat image */
+.cat-img {
+    width: 150px;
+}
+
+/* Typing effect */
+#typed {
+    font-size: 24px;
+    min-height: 60px;
+}
+
+/* Heart explosion */
+.explode {
+    position: absolute;
+    font-size: 24px;
+    animation: explode 1.2s ease-out forwards;
+}
+
+@keyframes explode {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Romantic Music -->
+<audio id="music" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_8c76f87fa5.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+    <!-- START -->
+    <div id="start">
+        <img class="cat-img" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif">
+        <h2>Click to start, Joy!</h2>
+        <button onclick="startExperience()">Start 💌</button>
+    </div>
+
+    <!-- Q1 -->
+    <div id="q1" class="hidden">
+        <h3>1) What cute value did you sting inside me?</h3>
+        <button onclick="wrong()">Silence is focus</button>
+        <button onclick="wrong()">Bums – love always</button>
+        <button onclick="wrong()">To accept Sundays</button>
+        <button onclick="next(2)">The love for Cats 🐱</button>
+    </div>
+
+    <!-- Q2 -->
+    <div id="q2" class="hidden">
+        <h3>2) Which was my first gift you didn’t return?</h3>
+        <button onclick="wrong()">My Ring</button>
+        <button onclick="next(3)">My Rumal Rumal</button>
+        <button onclick="wrong()">My Boxers</button>
+        <button onclick="wrong()">My Bow-tie</button>
+    </div>
+
+    <!-- Q3 -->
+    <div id="q3" class="hidden">
+        <h3>3) Where have we dreamt of being free & raw?</h3>
+        <button onclick="wrong()">Goa</button>
+        <button onclick="wrong()">Andaman</button>
+        <button onclick="wrong()">Kolkata</button>
+        <button onclick="next(4)">A home of our own ❤️</button>
+    </div>
+
+    <!-- Q4 -->
+    <div id="q4" class="hidden">
+        <h3>4) What is my favourite food?</h3>
+        <input id="food" placeholder="Type your answer">
+        <br><br>
+        <button onclick="checkFood()">Submit 💕</button>
+    </div>
+
+    <!-- FINAL -->
+    <div id="final" class="hidden">
+        <div id="typed"></div>
+        <button onclick="yes()">YES 💘</button>
+        <button id="noBtn">NO 🙃</button>
+    </div>
+
+    <!-- YES -->
+    <div id="yesPage" class="hidden">
+        <h1>YAYYYY 💖🥰</h1>
+        <p>You just made my whole world warmer.</p>
+        <p>Happy Valentine’s Day, Sumita 🐱❤️</p>
+    </div>
+
+</div>
+
+<script>
+function startExperience() {
+    document.getElementById("music").play();
+    next(1);
+}
+
+// Navigation
+function next(n) {
+    document.querySelectorAll('.container > div').forEach(d => d.classList.add('hidden'));
+    document.getElementById('q'+n)?.classList.remove('hidden');
+}
+
+function wrong() {
+    alert("Try again, my smart girl 😼");
+}
+
+function checkFood() {
+    const val = document.getElementById("food").value.trim();
+    if(val.length > 0) {
+        document.getElementById("q4").classList.add("hidden");
+        document.getElementById("final").classList.remove("hidden");
+        typeText("Will you be my Valentine, Sumita?? 💖");
+    } else {
+        alert("Type something, love 💕");
+    }
+}
+
+// Typing animation
+function typeText(text) {
+    let i = 0;
+    const el = document.getElementById("typed");
+    el.innerHTML = "";
+    const timer = setInterval(() => {
+        el.innerHTML += text[i];
+        i++;
+        if(i >= text.length) clearInterval(timer);
+    }, 80);
+}
+
+// NO button逃跑
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random()*200 - 100;
+    const y = Math.random()*200 - 100;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+// YES explosion
+function yes() {
+    for(let i=0;i<30;i++){
+        const h = document.createElement("div");
+        h.className = "explode";
+        h.innerText = "💖";
+        h.style.left = "50%";
+        h.style.top = "50%";
+        h.style.setProperty("--x", `${Math.random()*300-150}px`);
+        h.style.setProperty("--y", `${Math.random()*300-150}px`);
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),1200);
+    }
+    document.getElementById("final").classList.add("hidden");
+    document.getElementById("yesPage").classList.remove("hidden");
+}
+
+// Floating hearts
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "❤️";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (Math.random()*20+10)+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+}, 400);
+</script>
+
+</body>
+</html>
